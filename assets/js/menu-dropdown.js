@@ -1,0 +1,1 @@
+function myFunction(){document.getElementById("displayDropdown").classList.toggle("show")}window.onclick=function(n){if(!n.target.matches(".button-md-icon-line")){var o,t=document.getElementsByClassName("navDropdownContent");for(o=0;o<t.length;o++){var s=t[o];s.classList.contains("show")&&s.classList.remove("show")}}};

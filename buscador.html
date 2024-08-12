@@ -85,6 +85,7 @@
 	<!-- Animations -->
 	<script src="assets/js/menu.js"></script>
 	<script src="assets/js/menu-dropdown.js"></script>
+	<script src="assets/js/buscador.js"></script>
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -97,6 +98,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/base.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/slider.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/buscador.css">
 
 	<!-- ChatBot -->
 	<script src="https://code.jquery.com/jquery-3.6.0.slim.js"></script>
@@ -293,7 +295,24 @@
 					</div>
 
 					<br><br>
-					<ul id="resultscategories" class="resultscategories"></ul>
+					<div class="row">
+						<div class="arrow-up left-arrow- col-1" onclick="scrollToLeft()">
+							<div class="arrow-up-in">
+								&#10094;
+							</div>
+						</div>
+						<div class="col-12 col-lg-10">
+							<ul id="resultscategories" class="resultscategories"></ul>
+						</div>
+						<div class="arrow-up right-arrow- col-1" onclick="scrollToRight()">
+							<div class="arrow-up-in">
+								&#10095;
+							</div>
+						</div>
+
+						<div class="dots-container"></div>
+					</div>
+
 					<br><br>
 					<ul id="results" class="results"></ul>
 					<br><br><br>
@@ -513,405 +532,6 @@
 	<!-- Swiper JS -->
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-	<style>
-		.mt-55{
-			margin-top: 15em !important;
-		}
-		.search-box {
-			text-align: center;
-			margin: 20px;
-		}
-		
-		#search-input {
-			padding: 10px;
-			width: 200px;
-			border: 1px solid #ccc;
-			border-radius: 5px;
-		}
-		
-		.search-button {
-			background-color: #007bff;
-			color: #fff;
-			border: none;
-			padding: 10px 20px;
-			border-radius: 5px;
-			cursor: pointer;
-		}
-		.resultscategories{
-			display: flex;
-			overflow-x: hidden;
-			scroll-snap-type: x mandatory;
-			-webkit-overflow-scrolling: touch;
-			flex-wrap: nowrap;
-			flex-direction: row;
-			width: 85%;
-			margin: 0 auto;
-		}
-		div.category {
-			min-height: 100%;
-			overflow: hidden;
-			position: relative;
-			padding: 0.3em;
-			cursor: pointer;
-		}
-		
-
-
-		.css-1clo4wx {
-			display: inline-flex;
-			flex-direction: column;
-			position: relative;
-			min-width: 0px;
-			padding: 0px;
-			margin: 8px 0px;
-			border: 0px;
-			vertical-align: top;
-			width: 100%;
-			border-radius: 40px;
-			align-content: space-around;
-			justify-content: space-around;
-			align-items: center;
-		}
-
-		.css-qxbr9v {
-			color: rgba(0, 0, 0, 0.6);
-			font-family: "Open Sans";
-			font-weight: 400;
-			font-size: 1rem;
-			line-height: 1.4375em;
-			padding: 0px;
-			display: block;
-			transform-origin: left top;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			max-width: calc(133% - 32px);
-			position: absolute;
-			left: 11vw;
-			top: 0px;
-			transform: translate(14px, -9px) scale(0.75);
-			transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-			z-index: 1;
-			pointer-events: auto;
-			user-select: none;
-			padding-left: 1%;
-			padding-right: 3%;
-			background-color: #fff;
-		}
-
-		.css-g3o6x {
-			font-family: "Open Sans";
-			font-weight: 400;
-			font-size: 1rem;
-			line-height: 1.4375em;
-			box-sizing: border-box;
-			width: 70%;
-			cursor: text;
-			display: inline-flex;
-			-webkit-box-align: center;
-			align-items: center;
-			position: relative;
-			padding-left: 14px;
-			border-radius: 16px;
-			color: rgb(99, 101, 105);
-		}
-
-		.css-1a6giau {
-			display: flex;
-			height: 0.01em;
-			max-height: 2em;
-			-webkit-box-align: center;
-			align-items: center;
-			white-space: nowrap;
-			color: rgba(0, 0, 0, 0.54);
-			margin-right: 8px;
-		}
-		.css-1ixds2g {
-			font: inherit;
-			letter-spacing: inherit;
-			color: currentcolor;
-			border: 0px !important;
-			box-sizing: content-box;
-			background: none;
-			height: 1.4375em;
-			margin: 0px;
-			-webkit-tap-highlight-color: transparent;
-			display: block;
-			min-width: 0px;
-			width: 100%;
-			animation-name: mui-auto-fill-cancel;
-			animation-duration: 10ms;
-			padding: 16.5px 14px 16.5px 0px;
-		}
-		.css-igs3ac {
-			text-align: left;
-			position: absolute;
-			inset: -5px 0px 0px;
-			margin: 0px;
-			padding: 0px 8px;
-			pointer-events: none;
-			border-radius: inherit;
-			border-style: solid;
-			border-width: 1px;
-			overflow: hidden;
-			min-width: 0%;
-			border-color: rgba(0, 0, 0, 0.23);
-		}
-		.css-vubbuv {
-			user-select: none;
-			width: 1em;
-			height: 1em;
-			display: inline-block;
-			fill: currentcolor;
-			flex-shrink: 0;
-			transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-			font-size: 1.5rem;
-		}
-
-		.css-14lo706 {
-			float: unset;
-			width: auto;
-			overflow: hidden;
-			display: block;
-			padding: 0px;
-			height: 11px;
-			font-size: 0.75em;
-			visibility: hidden;
-			max-width: 100%;
-			transition: max-width 100ms cubic-bezier(0, 0, 0.2, 1) 50ms;
-			white-space: nowrap;
-		}
-		.css-14lo706 > span {
-			padding-left: 5px;
-			padding-right: 5px;
-			display: inline-block;
-			opacity: 0;
-			visibility: visible;
-		}
-		.material-symbols-rounded{
-			cursor: pointer;
-		}
-
-		:where(input, textarea):focus {
-			box-shadow: 0 0 0 0px #CEE6FF !important;
-		}
-		.filters-row{
-			margin: 0 auto;
-			display: flex;
-			flex-direction: row;
-			align-content: space-around;
-			justify-content: center;
-			align-items: center;
-		}
-		.filters-row .col-3{
-			width: 23%;
-			float: left;
-			border: 1px solid #ccc;
-			margin: 0.2em;
-			border-radius: 16px;
-		}
-		:focus-visible {
-			outline: -webkit-focus-ring-color auto 0px !important;
-		}
-		.results-item{
-			display: flex;
-			flex-direction: row;
-			align-content: space-around;
-			justify-content: center;
-			align-items: center;
-			margin: 0;
-			padding: 0;
-			border: 1px solid #ccc;
-			border-radius: 8px;
-			width: 8em;
-		}
-		.results{
-			width: 85%;
-			margin: 0 auto;
-			display: flex;
-			gap: 0.5em;
-			flex-wrap: wrap;
-			align-items: center;
-			justify-content: flex-start;
-			flex-direction: row;
-		}
-		.img-fluid{
-			border-radius: 8px;
-		}
-		.category-name{
-			font-family: DirectoLight;
-			font-weight: 500;
-			font-size: 0.6em;
-			margin-bottom: 8%;
-		}
-		#buscar{
-			padding: 16px 16px;
-		}
-
-		.d-results{
-			flex-direction: column-reverse;
-			align-items: center;
-			overflow: hidden;
-			white-space: nowrap;
-		}
-
-
-		@media (max-width: 768px) {
-			.filters-row{
-				flex-direction: column;
-			}
-			.filters-row .col-3 {
-				width: 90%;
-				float: none;
-				border: 1px solid #ccc;
-				margin: 0.2em;
-				border-radius: 16px;
-			}
-			.mt-55{
-				margin-top: 9em !important;
-			}
-			.css-g3o6x{
-				width: 90%;
-			}
-			.css-qxbr9v{
-				left: 5vw;
-			}
-			.results{
-				width: 100%;
-			}
-			
-			div.category{
-				width: 33% !important;
-				float: left;
-			}
-
-			.resultscategories {
-				display: flex;
-				overflow-x: auto;
-				scroll-snap-type: x mandatory;
-				-webkit-overflow-scrolling: touch;
-				flex-wrap: nowrap;
-				width: 85%;
-				margin: 0 auto;
-				justify-content: flex-start;
-			}
-			
-			.category {
-				flex: 0 0 auto;
-				scroll-snap-align: start;
-				width: calc(100% / 5 - 20px);
-				margin-right: 10px; 
-				background-color: #f0f0f0; 
-				padding: 20px; 
-				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-				border-radius: 10px; 
-			}
-			
-			.resultscategories::-webkit-scrollbar {
-				display: none; 
-			}
-			
-			.slider-container {
-				display: flex;
-				align-items: center;
-			}
-			
-			.slider-button {
-				background-color: #ffffff;
-				border: none;
-				cursor: pointer;
-				font-size: 24px;
-				padding: 10px;
-				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-				border-radius: 50%;
-				margin: 0 10px;
-			}
-			
-			.slider-button:focus {
-				outline: none;
-			}
-
-			.results{
-				width: 85%;
-				margin: 0 auto;
-				padding: 1%;
-			}
-
-
-
-
-
-			div.results{
-				width: 33% !important;
-				float: left;
-			}
-
-			.results {
-				display: flex;
-				overflow-x: auto;
-				scroll-snap-type: x mandatory;
-				-webkit-overflow-scrolling: touch;
-				flex-wrap: nowrap;
-				width: 85%;
-				margin: 0 auto;
-				justify-content: flex-start;
-			}
-			
-			.results-item {
-				flex: 0 0 auto;
-        scroll-snap-align: start;
-        width: calc(100% / 2 - 57px);
-			}
-			
-			.results::-webkit-scrollbar {
-				display: none;
-			}
-			
-			.slider-containerr {
-				display: flex;
-				align-items: center;
-			}
-			
-			.slider-buttonr {
-				background-color: #ffffff;
-				border: none;
-				cursor: pointer;
-				font-size: 24px;
-				padding: 10px;
-				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-				border-radius: 50%;
-				margin: 0 10px;
-			}
-			
-			.slider-buttonr:focus {
-				outline: none;
-			}
-
-
-
-
-
-
-
-		}
-
-
-
-		/* Estilo para dispositivos móviles: 2 columnas */
-		@media (max-width: 768px) {
-			.results-container {
-				grid-template-columns: repeat(2, 1fr);
-			}
-		}
-
-		/* Estilo para dispositivos de escritorio: 6 columnas */
-		@media (min-width: 769px) {
-			.results-container {
-				grid-template-columns: repeat(6, 1fr);
-			}
-		}
-	</style>
-
 	<!-- Initialize Swiper -->
 	<script>
 		var swiper = new Swiper(".HeroSwiper", {
@@ -963,303 +583,27 @@
 	</script>
 
 	<script>
-		function scrollItemsLeft() {
-			const container = document.querySelector('.resultscategories');
-			const itemWidth = container.querySelector('.category').offsetWidth;
-			container.scrollBy({ left: - itemWidth * 1, behavior: 'smooth' }); 
-		}
-		
-		function scrollItemsRight() {
-			const container = document.querySelector('.resultscategories');
-			const itemWidth = container.querySelector('.category').offsetWidth;
-			container.scrollBy({ left: itemWidth * 1, behavior: 'smooth' }); 
-		}
-		
-	</script>
-
-	<script>
-
+		const resultCategories = document.getElementById('resultscategories');
+		const dotsContainer = document.querySelector('.dots-container');
+		const categoryItems = resultCategories.children;
+		let currentIndex = 0;
 		let dataComercios = [];
 		let dataCategories = [];
 		let dataOffers = [];
 		let dataProvinces = [];
 		let dataFiltrada = [];
-
-		function obtenerDatosComercios() {
-			jQuery('#destacados').css('display','none');
-			let cat = selectCategories.value;
-			let off = selectOffers.value;
-			let prov = selectProvinces.value;
-
-			let query = document.getElementById("buscar").value;
-
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', 'https://dir-prd-eastus-api-apim-01.azure-api.net/api/v1.0/stores', true);
-			xhr.setRequestHeader('ApiKey', 'ArQwE10MLm1M0eTn2eLa#19UoaA0a9g1X04IrRAOERtMr0A00XvZ19inimiRIto4isA7a4');
-			xhr.setRequestHeader('Ocp-Apim-Subscription-Key', 'c28669f7fbe64db3b2bc6720b2b21949');
-			xhr.setRequestHeader('Credentials', 's5KhgNCxVywbuISSeQnOLEUGGPzb1eYBSU7h8A3ESs3rzbBT7T3v58jLgFw3nkWhJBIj9DQGfmdTslLQxJmL8w==');
-			
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE) {
-					if (xhr.status === 200) {
-						var datos = JSON.parse(xhr.responseText);
-						console.log(datos);
-						dataComercios = datos;
-
-						let results = [];
-						for (let i = 0; i < dataComercios.length; i++) {
-							let match = true;
-
-							if (cat != 0) {
-								match = match && dataComercios[i].category && dataComercios[i].category.toLowerCase().includes(cat.toLowerCase());
-							}
-							if (off != 0) {
-								match = match && dataComercios[i].offer && dataComercios[i].offer.toLowerCase().includes(off.toLowerCase());
-							}
-							if (prov != 0) {
-								match = match && dataComercios[i].province && dataComercios[i].province.toLowerCase().includes(prov.toLowerCase());
-							}
-							if (query != '') {
-								match = match && dataComercios[i].commerce && dataComercios[i].commerce.toLowerCase().includes(query.toLowerCase());
-							}
-
-							if (match) {
-								results.push(dataComercios[i]);
-							}
-						}
-
-						document.getElementById("results").innerHTML = "";
-
-						if(results.length >0){
-							for(let i = 0; i < results.length; i++){
-								let li = document.createElement("div");
-								li.classList.add("results-item");
-								var nombresincortar = results[i].commerce;
-								var nombrecortado = nombresincortar.split(" ");
-								var primernombre = nombrecortado[0].toLowerCase();
-								li.innerHTML = `
-									<div class="position-relative d-block d-flex d-results" href="" role="button" onclick='goToURL(\"${results[i].url}\",\"\")'>
-										<span class="position-absolute text-black fw-600 category-name">${results[i].commerce}</span>
-										<img class="img-fluid w-100" src="${results[i].logo}">
-									</div><br>`;
-								document.getElementById("results").appendChild(li);
-							}
-						} else {
-							let li = document.createElement("div");
-							li.innerHTML = "No se encontraron resultados";
-							document.getElementById("results").appendChild(li);
-						}
-					} else {
-						console.error('Error al obtener datos:', xhr.status);
-					}
-				}
-			};
-			
-			xhr.send();
-		}
-
-
-		function obtenerDatosCategorias() {
-			const resultscategories = document.getElementById("resultscategories");
-		    resultscategories.innerHTML = "";
-			const selectcategories = document.getElementById("selectcategories");
-
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'https://dir-prd-eastus-api-apim-01.azure-api.net/api/v1.0/stores/filter', true);
-			xhr.setRequestHeader('ApiKey', 'ArQwE10MLm1M0eTn2eLa#19UoaA0a9g1X04IrRAOERtMr0A00XvZ19inimiRIto4isA7a4');
-			xhr.setRequestHeader('Ocp-Apim-Subscription-Key', 'c28669f7fbe64db3b2bc6720b2b21949');
-			xhr.setRequestHeader('Credentials', 's5KhgNCxVywbuISSeQnOLEUGGPzb1eYBSU7h8A3ESs3rzbBT7T3v58jLgFw3nkWhJBIj9DQGfmdTslLQxJmL8w==');
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE) {
-					if (xhr.status === 200) {
-						var datos = JSON.parse(xhr.responseText);
-						console.log(datos);
-						dataCategories = datos.categories;
-						dataOffers = datos.offers;
-						dataProvinces = datos.provinces;
-			
-						function agregarOpcionSeleccionar(selectElement, nameitem) {
-							let option = document.createElement("option");
-							option.value = '0';
-							option.text = 'Seleccionar '+nameitem;
-							selectElement.appendChild(option);
-						}
-			
-						agregarOpcionSeleccionar(selectCategories,'Categoría');
-						if (dataCategories.length > 0) {
-							dataCategories.forEach(result => {
-								let div = document.createElement("div");
-								div.classList.add("category");
-								div.innerHTML = `
-									<div class="position-relative d-flex" href="" onclick='obtenerDatosFiltrados(\"${result}\", "", "")'>
-										<span class="position-absolute text-white fw-600 category-name">${result}</span>
-										<div class="position-absolute top-0 start-0 w-100 h-100 rounded" style="background-color: rgba(0, 0, 0, 0.1);"></div>
-										<img class="img-fluid w-100" src="assets/images/buscador/${result}.png">
-									</div>`;
-								resultscategories.appendChild(div);
-			
-								let option = document.createElement("option");
-								option.value = result;
-								option.text = result;
-								selectCategories.appendChild(option);
-							});
-						}
-			
-						agregarOpcionSeleccionar(selectOffers, 'Oferta');
-						if (dataOffers.length > 0) {
-							dataOffers.forEach(result => {
-								let option = document.createElement("option");
-								option.value = result;
-								option.text = result;
-								selectOffers.appendChild(option);
-							});
-						}
-			
-						// agregarOpcionSeleccionar(selectProvinces,'Provincia');
-						// if (dataProvinces.length > 0) {
-						// 	dataProvinces.forEach(result => {
-						// 		let option = document.createElement("option");
-						// 		option.value = result;
-						// 		option.text = result;
-						// 		selectProvinces.appendChild(option);
-						// 	});
-						// }
-					} else {
-						console.error('Error al obtener datos:', xhr.status);
-					}
-				}
-			};
-			
-			var payload = JSON.stringify({
-				"Category": "",
-				"Offer": "",
-				"Province": ""
-			});
-			
-			xhr.send(payload);
-		}
-
-		function obtenerDatosFiltrados(cat, off , prov) {
-			
-			var prevcat = selectCategories.value;
-			var prevoffer = selectOffers.value;
-			var prevprov = selectProvinces.value;
-
-			if (!cat && cat !=0) {
-				selectCategories.value = cat;
+		let comercioHome = '';
+		jQuery( document ).ready(function() {
+			let params = new URLSearchParams(window.location.search);
+			comercioHome = params.get("comercio");
+			if(comercioHome != null){
+				jQuery('#buscar').val(comercioHome);
+				obtenerDatosComercios();
 			}
-			if (!off && off !=0) {
-				selectOffers.value = off;
-			}
-			if (!prov && prov !=0) {
-				selectProvinces.value = prov;
-			}
-
-
-
-			let query = document.getElementById("buscar").value;
-
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'https://dir-prd-eastus-api-apim-01.azure-api.net/api/v1.0/stores/affiliated', true);
-			xhr.setRequestHeader('ApiKey', 'ArQwE10MLm1M0eTn2eLa#19UoaA0a9g1X04IrRAOERtMr0A00XvZ19inimiRIto4isA7a4');
-			xhr.setRequestHeader('Ocp-Apim-Subscription-Key', 'c28669f7fbe64db3b2bc6720b2b21949');
-			xhr.setRequestHeader('Credentials', 's5KhgNCxVywbuISSeQnOLEUGGPzb1eYBSU7h8A3ESs3rzbBT7T3v58jLgFw3nkWhJBIj9DQGfmdTslLQxJmL8w==');
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE) {
-					if (xhr.status === 200) {
-						var datos = JSON.parse(xhr.responseText);
-						console.log(datos);
-						dataFiltrada = datos;
-						
-
-						let results = [];
-						for (let i = 0; i < dataFiltrada.length; i++) {
-								results.push(dataFiltrada[i]);
-						}
-
-						document.getElementById("results").innerHTML = "";
-
-						if(results.length >0){
-							for(let i = 0; i < results.length; i++){
-								let li = document.createElement("div");
-								li.classList.add("results-item");
-								li.innerHTML = results[i].commerce;
-								var nombresincortar = results[i].name;
-								var nombrecortado = nombresincortar.split(" ");
-								var primernombre = nombrecortado[0].toLowerCase();
-								li.innerHTML = `
-									<div class="position-relative d-flex" href="" role="button" onclick='goToURL(\"${results[i].url}\",\"\")'>
-										<span class="position-absolute text-black fw-600 category-name">${results[i].commerce}</span>
-										<img class="img-fluid w-100" src="${results[i].logo}">
-									</div>`;
-								document.getElementById("results").appendChild(li);
-							}
-						}
-						else{
-							let li = document.createElement("div");
-							li.innerHTML = "No se encontraron resultados";
-							document.getElementById("results").appendChild(li);
-						}
-
-
-
-
-					} else {
-						console.error('Error al obtener datos:', xhr.status);
-					}
-				}
-			};
-			
-			var payload = JSON.stringify({
-				"Category": cat,
-				"Offer": off,
-				"Province": prov
-			});
-			
-			xhr.send(payload);
-		}
-
-		
-		function buscarPorFiltro(){
-			
-			let query = document.getElementById("buscar").value;
-			console.log(query);
-			document.getElementById("results").innerHTML = "";
-
-			cat = document.getElementById("selectCategories").value;
-			if(cat == 0){
-				cat = '';
-			}
-			off = document.getElementById("selectOffers").value;
-			if(off == 0){
-				off = '';
-			}
-			prov = document.getElementById("selectProvinces").value;
-			if(prov == 0){
-				prov = '';
-			}
-
-			if (query.trim() === "") {
-				alert("Ingrese un valor para buscar");
-				return;
-			}
-
-			obtenerDatosFiltrados(cat,off,prov);
-
-		};
-
-
-		function goToURL(baseUrl, params) {
-			const urlParams = new URLSearchParams(params).toString();
-			const fullUrl = `${baseUrl}?${urlParams}`;
-			window.open(fullUrl, '_blank');
-		}
+		});
 
 		obtenerDatosCategorias();
+
 
 		document.getElementById('buscar').addEventListener('keydown', function(event) {
 			if (event.key === 'Enter') {
@@ -1267,7 +611,14 @@
 				obtenerDatosComercios();
 			}
 		});
-
+		
+		document.addEventListener('DOMContentLoaded', function() {
+			setTimeout(function() {
+				updateDots();
+			}, 2000); // Ejecuta updateDots después de 2 segundos
+		});
 	</script>
+
+
 	<!-- scripts -->
 </body>

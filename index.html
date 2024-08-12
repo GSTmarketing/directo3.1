@@ -94,6 +94,7 @@
 	<link rel="stylesheet" type="text/css" href="././assets/css/base.css">
 	<link rel="stylesheet" type="text/css" href="././assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="././assets/css/slider.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/buscador.css">
 
 	<!-- ChatBot -->
 	<script src="https://code.jquery.com/jquery-3.6.0.slim.js"></script>
@@ -271,6 +272,36 @@
 				<div>
 					<img src="././assets/images/banner--para-vos--cuotas--6-30.jpg" alt="">
 				</div>
+			</div>
+		</section>
+
+		<section class="container mb-5 pb-5">
+			<div class="flex mobile--flex-column flex-column justify-content-evenly">
+				<section>
+					<div class="container text-center">
+						<div class="pb-small">
+							<h2>Comercios en Directo</h2>
+						</div>
+					</div>
+					
+					<div class="MuiFormControl-root MuiFormControl-fullWidth css-1clo4wx">
+						<label class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-qxbr9v" data-shrink="true" for="email">Buscá el nombre del comercio</label>
+						<div class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorInfo MuiInputBase-formControl MuiInputBase-adornedStart css-g3o6x">
+							<input aria-invalid="false" id="buscar" type="text" class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedStart css-1ixds2g" value="">
+							<div class="MuiInputAdornment-root MuiInputAdornment-positionStart MuiInputAdornment-outlined MuiInputAdornment-sizeMedium css-1a6giau">
+								<span class="notranslate">​</span>
+								<span class="material-symbols-rounded" onclick="goBuscador();">
+									search
+								</span>
+							</div>
+							<fieldset aria-hidden="true" class="MuiOutlinedInput-notchedOutline css-igs3ac">
+								<legend class="css-14lo706">
+									<span>Buscá tu comercio</span>
+								</legend>
+							</fieldset>
+						</div>
+					</div>
+				</section>
 			</div>
 		</section>
 
@@ -608,6 +639,11 @@
 				},
 			},
 		});
+		function goBuscador(){
+			const nombreDelComercioObtenido = document.getElementById('buscar').value;
+			const url = `buscador.html?comercio=${encodeURIComponent(nombreDelComercioObtenido)}`;
+			window.location.href = url;
+		};
 	</script>
 	<!-- scripts -->
 </body>
